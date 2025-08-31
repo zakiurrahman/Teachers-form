@@ -7,6 +7,12 @@ import { useForm, ValidationError } from '@formspree/react';
 const TeacherRegistrationForm: React.FC = () => {
   const [state, handleSubmit] = useForm("mpwjrlpg");
 
+  // Debug logging
+  console.log('Form state:', state);
+  console.log('Submitting:', state.submitting);
+  console.log('Succeeded:', state.succeeded);
+  console.log('Errors:', state.errors);
+
   // Success message component
   if (state.succeeded) {
     return (
@@ -34,7 +40,10 @@ const TeacherRegistrationForm: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              // Reset form by reloading
+              window.location.reload();
+            }}
             className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300"
           >
             Submit Another Application
@@ -82,12 +91,10 @@ const TeacherRegistrationForm: React.FC = () => {
         </motion.h1>
 
         <form 
-          action="https://formspree.io/f/mpwjrlpg"
-          method="POST"
-          onSubmit={handleSubmit} 
+          onSubmit={handleSubmit}
           className="space-y-6"
         >
-          {/* Hidden input for target email */}
+          {/* Hidden input to specify target email */}
           <input type="hidden" name="_to" value="classictuitions.875@gmail.com" />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -354,6 +361,7 @@ const TeacherRegistrationForm: React.FC = () => {
               )}
             </motion.button>
           </motion.div>
+
         </form>
         </div>
       </motion.div>

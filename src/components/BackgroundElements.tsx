@@ -1,88 +1,157 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 
 export default function BackgroundElements() {
+  const [isClient, setIsClient] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll();
+  
+  // Subtle scroll-based transforms
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [0, 180]);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {/* Floating orbs */}
-      {Array.from({ length: 5 }).map((_, i) => {
-        // Use deterministic sizing and positioning based on index
+    <div ref={containerRef} className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Clean gradient background */}
+      <motion.div
+        className="absolute inset-0 z-10"
+        style={{
+          y: backgroundY,
+          background: 'radial-gradient(circle at 30% 70%, rgba(147, 197, 253, 0.25) 0%, transparent 60%), radial-gradient(circle at 70% 30%, rgba(196, 181, 253, 0.20) 0%, transparent 60%)'
+        }}
+        animate={{
+          background: [
+            'radial-gradient(circle at 30% 70%, rgba(147, 197, 253, 0.25) 0%, transparent 60%), radial-gradient(circle at 70% 30%, rgba(196, 181, 253, 0.20) 0%, transparent 60%)',
+            'radial-gradient(circle at 70% 30%, rgba(147, 197, 253, 0.25) 0%, transparent 60%), radial-gradient(circle at 30% 70%, rgba(196, 181, 253, 0.20) 0%, transparent 60%)',
+            'radial-gradient(circle at 30% 70%, rgba(147, 197, 253, 0.25) 0%, transparent 60%), radial-gradient(circle at 70% 30%, rgba(196, 181, 253, 0.20) 0%, transparent 60%)'
+          ]
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      {/* Subtle floating orbs - only 3 */}
+      {Array.from({ length: 3 }).map((_, i) => {
         const orbConfigs = [
-          { size: 80, left: 15, top: 25 },
-          { size: 120, left: 75, top: 60 },
-          { size: 60, left: 40, top: 80 },
-          { size: 100, left: 85, top: 20 },
-          { size: 90, left: 25, top: 50 }
+          { size: 200, left: 15, top: 25, gradient: 'from-blue-300/30 via-cyan-300/25 to-transparent' },
+          { size: 150, left: 75, top: 60, gradient: 'from-purple-300/28 via-pink-300/22 to-transparent' },
+          { size: 180, left: 45, top: 80, gradient: 'from-indigo-300/26 via-blue-300/20 to-transparent' }
         ];
-        const config = orbConfigs[i] || { size: 80, left: 50, top: 50 };
+        const config = orbConfigs[i];
         
         return (
           <motion.div
-            key={i}
-            className="absolute rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm"
+            key={`orb-${i}`}
+            className={`absolute rounded-full bg-gradient-to-br ${config.gradient} backdrop-blur-sm z-20`}
             style={{
               width: `${config.size}px`,
               height: `${config.size}px`,
               left: `${config.left}%`,
               top: `${config.top}%`,
+              rotateX
             }}
             animate={{
               y: [0, -20, 0],
               x: [0, 10, 0],
+              scale: [1, 1.05, 1]
             }}
             transition={{
-              duration: 6 + i * 2,
+              duration: 8 + i * 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
+              delay: i * 1.5
             }}
           />
         );
       })}
-      
-      {/* Twinkling particles */}
-      {Array.from({ length: 20 }).map((_, i) => {
-        // Use deterministic positioning based on index to avoid hydration mismatch
-        const positions = [
-          { left: 10, top: 20 }, { left: 85, top: 15 }, { left: 25, top: 80 }, { left: 70, top: 60 },
-          { left: 45, top: 30 }, { left: 90, top: 75 }, { left: 15, top: 45 }, { left: 60, top: 85 },
-          { left: 35, top: 10 }, { left: 80, top: 40 }, { left: 5, top: 70 }, { left: 55, top: 25 },
-          { left: 75, top: 90 }, { left: 20, top: 55 }, { left: 95, top: 35 }, { left: 40, top: 65 },
-          { left: 65, top: 5 }, { left: 30, top: 95 }, { left: 85, top: 50 }, { left: 50, top: 75 }
+
+      {/* Minimal geometric accents - only 2 */}
+      {Array.from({ length: 2 }).map((_, i) => {
+        const shapes = [
+          { shape: 'square', left: 85, top: 20, size: 40 },
+          { shape: 'diamond', left: 20, top: 75, size: 35 }
         ];
-        const position = positions[i] || { left: 50, top: 50 };
+        const config = shapes[i];
         
         return (
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/40 rounded-full"
+            key={`shape-${i}`}
+            className="absolute bg-white/8 backdrop-blur-sm border border-white/15 z-30"
             style={{
-              left: `${position.left}%`,
-              top: `${position.top}%`,
+              width: `${config.size}px`,
+              height: `${config.size}px`,
+              left: `${config.left}%`,
+              top: `${config.top}%`,
+              clipPath: config.shape === 'diamond' ? 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' : 'none',
+              borderRadius: config.shape === 'square' ? '6px' : '0'
             }}
             animate={{
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
+              rotate: [0, 360],
+              opacity: [0.3, 0.6, 0.3]
             }}
             transition={{
-              duration: 2 + (i * 0.2),
+              duration: 15 + i * 5,
               repeat: Infinity,
-              delay: i * 0.1,
+              ease: "linear"
             }}
           />
         );
       })}
-      
-      {/* Morphing blob */}
+
+      {/* Subtle particle system - only 8 particles */}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const positions = [
+          { left: 10, top: 15 }, { left: 90, top: 25 }, { left: 25, top: 45 }, { left: 75, top: 55 },
+          { left: 15, top: 85 }, { left: 85, top: 75 }, { left: 55, top: 20 }, { left: 35, top: 90 }
+        ];
+        const pos = positions[i];
+        
+        return (
+          <motion.div
+            key={`particle-${i}`}
+            className="absolute w-1 h-1 bg-white/40 rounded-full z-40"
+            style={{
+              left: `${pos.left}%`,
+              top: `${pos.top}%`
+            }}
+            animate={{
+              opacity: [0.2, 0.8, 0.2],
+              scale: [0.5, 1.2, 0.5],
+              y: [0, -10, 0]
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3
+            }}
+          />
+        );
+      })}
+
+      {/* Single elegant wave effect */}
       <motion.div
-        className="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
-        style={{ transform: 'translate(-50%, -50%)' }}
+        className="absolute inset-0 z-15"
+        style={{
+          background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(147, 197, 253, 0.15) 60deg, transparent 120deg)',
+          borderRadius: '50%'
+        }}
         animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
+          rotate: [0, 360]
         }}
         transition={{
-          duration: 20,
+          duration: 30,
           repeat: Infinity,
           ease: "linear"
         }}
