@@ -6,65 +6,72 @@ export default function BackgroundElements() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
       {/* Floating orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-32 h-32 bg-blue-500/20 rounded-full blur-xl"
-        animate={{
-          y: [0, -20, 0],
-          x: [0, 10, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute top-40 right-20 w-24 h-24 bg-purple-500/20 rounded-full blur-xl"
-        animate={{
-          y: [0, 15, 0],
-          x: [0, -15, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-32 left-1/4 w-40 h-40 bg-green-500/15 rounded-full blur-xl"
-        animate={{
-          y: [0, -25, 0],
-          x: [0, 20, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+      {Array.from({ length: 5 }).map((_, i) => {
+        // Use deterministic sizing and positioning based on index
+        const orbConfigs = [
+          { size: 80, left: 15, top: 25 },
+          { size: 120, left: 75, top: 60 },
+          { size: 60, left: 40, top: 80 },
+          { size: 100, left: 85, top: 20 },
+          { size: 90, left: 25, top: 50 }
+        ];
+        const config = orbConfigs[i] || { size: 80, left: 50, top: 50 };
+        
+        return (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm"
+            style={{
+              width: `${config.size}px`,
+              height: `${config.size}px`,
+              left: `${config.left}%`,
+              top: `${config.top}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              x: [0, 10, 0],
+            }}
+            transition={{
+              duration: 6 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        );
+      })}
       
       {/* Twinkling particles */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-white/40 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: Math.random() * 3 + 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
+      {Array.from({ length: 20 }).map((_, i) => {
+        // Use deterministic positioning based on index to avoid hydration mismatch
+        const positions = [
+          { left: 10, top: 20 }, { left: 85, top: 15 }, { left: 25, top: 80 }, { left: 70, top: 60 },
+          { left: 45, top: 30 }, { left: 90, top: 75 }, { left: 15, top: 45 }, { left: 60, top: 85 },
+          { left: 35, top: 10 }, { left: 80, top: 40 }, { left: 5, top: 70 }, { left: 55, top: 25 },
+          { left: 75, top: 90 }, { left: 20, top: 55 }, { left: 95, top: 35 }, { left: 40, top: 65 },
+          { left: 65, top: 5 }, { left: 30, top: 95 }, { left: 85, top: 50 }, { left: 50, top: 75 }
+        ];
+        const position = positions[i] || { left: 50, top: 50 };
+        
+        return (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white/40 rounded-full"
+            style={{
+              left: `${position.left}%`,
+              top: `${position.top}%`,
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2 + (i * 0.2),
+              repeat: Infinity,
+              delay: i * 0.1,
+            }}
+          />
+        );
+      })}
       
       {/* Morphing blob */}
       <motion.div

@@ -2,10 +2,16 @@
 
 import { motion } from 'framer-motion';
 import TeacherRegistrationForm from '@/components/TeacherRegistrationForm';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import BackgroundElements from '@/components/BackgroundElements';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
+    <>
+      <Navbar />
+      <BackgroundElements />
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           className="text-center mb-16"
@@ -66,6 +72,8 @@ export default function Home() {
           <TeacherRegistrationForm />
         </motion.div>
       </div>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
