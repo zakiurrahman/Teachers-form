@@ -27,25 +27,38 @@ export default function Navbar() {
               HOME TUITIONS
             </p>
           </motion.div>
-          <motion.button
-            onClick={() => {
-              const formElement = document.querySelector('#teacher-form');
-              if (formElement) {
-                formElement.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            className="relative bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold px-6 py-2.5 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 cursor-pointer select-none"
+          <motion.div 
+            className="flex space-x-3"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            whileHover={{ 
-              scale: 1.05,
-              background: "linear-gradient(to right, #3b82f6, #8b5cf6)"
-            }}
-            whileTap={{ scale: 0.95 }}
           >
-            Get Started
-          </motion.button>
+            {/* Teacher Button */}
+            <button
+              onClick={() => {
+                const formElement = document.querySelector('#teacher-form');
+                if (formElement) {
+                  formElement.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="relative bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold px-5 py-2.5 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 active:scale-95 cursor-pointer select-none"
+            >
+              For Teachers
+            </button>
+            
+            {/* Parent Button */}
+            <button
+              onClick={() => {
+                const formElement = document.querySelector('#parent-form');
+                if (formElement) {
+                  formElement.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="relative bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold px-5 py-2.5 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/25 hover:scale-105 active:scale-95 cursor-pointer select-none"
+            >
+              For Parents
+            </button>
+          </motion.div>
         </div>
       </div>
     </motion.nav>

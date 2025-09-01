@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Teacher Registration - CLASSIC Tuitions",
-  description: "Join our teaching community at CLASSIC Tuitions. Register as a teacher and make a difference in students' lives.",
+  description: "Join our education community at CLASSIC Tuitions. Register as a teacher and make a difference in students' lives.",
 };
 
 export default function RootLayout({

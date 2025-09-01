@@ -51,27 +51,27 @@ const Footer: React.FC = () => {
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-br from-gray-600/10 to-transparent rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-gradient-to-tl from-gray-500/10 to-transparent rounded-full blur-3xl"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center"
+            className="text-center md:text-left"
           >
-            <div className="flex flex-col items-center justify-center mb-4">
+            <div className="flex flex-col items-center md:items-start justify-center mb-4">
               <div className="text-4xl font-black bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent tracking-tight leading-none drop-shadow-lg">
                 CLASSIC
               </div>
-              <div className="text-xs text-blue-300/80 tracking-[0.2em] uppercase font-medium text-center">
+              <div className="text-xs text-blue-300/80 tracking-[0.2em] uppercase font-medium text-center md:text-left">
                 home tuitions
               </div>
             </div>
             <p className="text-gray-300 text-sm mb-6 leading-relaxed max-w-md">
               Empowering minds through quality education. Join thousands of students and teachers in our mission to make learning accessible and engaging for everyone.
             </p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center md:justify-start space-x-4">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.name}
@@ -87,6 +87,29 @@ const Footer: React.FC = () => {
                   {social.icon}
                 </motion.a>
               ))}
+            </div>
+          </motion.div>
+
+          {/* Address Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center md:text-right"
+          >
+            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent mb-4">
+              Our Address
+            </h3>
+            <div className="text-gray-300 text-sm leading-relaxed space-y-1">
+              <p className="font-medium">Street 6a near citygramer school</p>
+              <p className="font-medium">Shaly Valy</p>
+              <p className="font-medium">House no 1428/53</p>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-700/30">
+              <p className="text-gray-400 text-xs">
+                Visit us for personalized consultation
+              </p>
             </div>
           </motion.div>
         </div>

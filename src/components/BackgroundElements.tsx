@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
+import AnimatedBook from './AnimatedBook';
 
 export default function BackgroundElements() {
   const [isClient, setIsClient] = useState(false);
@@ -156,6 +157,9 @@ export default function BackgroundElements() {
           ease: "linear"
         }}
       />
+      
+      {/* Animated Book Element */}
+      <AnimatedBook />
     </div>
   );
 }

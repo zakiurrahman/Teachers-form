@@ -284,50 +284,23 @@ const TeacherRegistrationForm: React.FC = () => {
             />
           </motion.div>
 
-          {/* Document Upload */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.5, type: "spring", stiffness: 100 }}
-            whileHover={{ scale: 1.02 }}
-            whileFocus={{ scale: 1.02 }}
-          >
-            <label className="block text-white/90 text-sm font-semibold mb-3">
-              Document Attachment
-            </label>
-            <div className="relative">
-              <input
-                type="file"
-                name="document"
-                className="w-full px-5 py-4 bg-gray-800/60 border border-gray-600/40 rounded-xl text-white file:mr-4 file:py-3 file:px-6 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-gray-700 file:to-gray-600 file:text-white hover:file:from-gray-600 hover:file:to-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500/50 focus:border-gray-500/50 focus:bg-gray-800/80 transition-all duration-300 backdrop-blur-sm"
-                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-              />
-            </div>
-            <p className="text-gray-400 text-xs mt-2 font-medium">
-              Accepted formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 5MB)
-            </p>
-          </motion.div>
+
 
           {/* Submit Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.5 }}
-            className="pt-4"
-          >
-            <motion.button
-              type="submit"
-              whileHover={{ 
-                scale: 1.02,
-                boxShadow: "0 25px 50px rgba(139, 92, 246, 0.4)"
-              }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="w-full font-bold py-4 px-8 rounded-2xl transition-all duration-300 shadow-2xl border backdrop-blur-sm text-lg bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 hover:from-gray-600 hover:via-gray-500 hover:to-gray-600 hover:shadow-gray-500/25 border-gray-500/30 text-white"
+          <div className="pt-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.5 }}
             >
-              Submit Your Info
-            </motion.button>
-          </motion.div>
+              <button
+                type="submit"
+                className="w-full font-bold py-4 px-8 rounded-2xl transition-all duration-300 shadow-2xl border backdrop-blur-sm text-lg bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 hover:from-gray-600 hover:via-gray-500 hover:to-gray-600 hover:shadow-gray-500/25 hover:scale-105 active:scale-95 border-gray-500/30 text-white"
+              >
+                Submit Your Info
+              </button>
+            </motion.div>
+          </div>
 
         </form>
         </div>

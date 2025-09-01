@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import TeacherRegistrationForm from '@/components/TeacherRegistrationForm';
+import ParentsRegistrationForm from '@/components/ParentsRegistrationForm';
 import Footer from '@/components/Footer';
 import BackgroundElements from '@/components/BackgroundElements';
 
@@ -25,7 +26,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
           >
-            Join Our Teaching
+            Join Our Education
             <br />
             <span className="bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 bg-clip-text text-transparent">
               Community
@@ -70,6 +71,16 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <TeacherRegistrationForm />
+        </motion.div>
+        
+        {/* Parents Registration Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-20"
+        >
+          <ParentsRegistrationForm />
         </motion.div>
       </div>
       </div>
