@@ -102,9 +102,7 @@ const Footer: React.FC = () => {
               Our Address
             </h3>
             <div className="text-gray-300 text-sm leading-relaxed space-y-1">
-              <p className="font-medium">Street 6a near citygramer school</p>
-              <p className="font-medium">Shaly Valy</p>
-              <p className="font-medium">House no 1428/53</p>
+              <p className="font-medium">Street no 6a near city grammer school house no 1428/53 shalley valley rwp</p>
             </div>
             <div className="mt-4 pt-4 border-t border-gray-700/30">
               <p className="text-gray-400 text-xs">
